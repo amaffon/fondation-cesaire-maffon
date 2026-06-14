@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fondation Césaire Maffon — Every heartbeat counts.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy:    #0D1B3E;
+    --navy2:   #152244;
+    --teal:    #0D9488;
+    --teal-lt: #14B8A6;
+    --gold:    #F59E0B;
+    --gold-lt: #FCD34D;
+    --red:     #DC2626;
+    --white:   #FFFFFF;
+    --off:     #F8FAFC;
+    --slate:   #334155;
+    --muted:   #64748B;
+    --border:  #E2E8F0;
+    --card:    #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--slate); background: var(--white); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,27,62,0.97); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 46px; height: 46px; border-radius: 10px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: #000;
+  }
+  .nav-logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-logo-text { display: flex; flex-direction: column; }
+  .nav-logo-text span:first-child { font-size: 13px; font-weight: 700; color: white; letter-spacing: 0.5px; }
+  .nav-logo-text span:last-child { font-size: 10px; color: var(--teal-lt); letter-spacing: 0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 6px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 500;
+    padding: 6px 12px; border-radius: 6px; transition: all 0.2s;
+  }
+  .nav-links a:hover { color: white; background: rgba(255,255,255,0.08); }
+  .nav-lang {
+    display: flex; gap: 4px; margin-left: 16px;
+  }
+  .nav-lang button {
+    background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
+    font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 4px; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.5px;
+  }
+  .nav-lang button.active, .nav-lang button:hover {
+    background: var(--teal); border-color: var(--teal); color: white;
+  }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important; font-weight: 700 !important;
+    padding: 8px 18px !important; border-radius: 8px !important;
+    margin-left: 12px; transition: all 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-lt) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; background: var(--navy);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 5% 60px; position: relative; overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute; border-radius: 50%; opacity: 0.04;
+    background: var(--teal);
+  }
+  .hero-bg-circle.c1 { width: 600px; height: 600px; right: -100px; top: -100px; }
+  .hero-bg-circle.c2 { width: 300px; height: 300px; left: 10%; bottom: 5%; background: var(--gold); }
+  .hero-logo-img {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: clamp(220px, 28vw, 360px); opacity: 0.18; pointer-events: none;
+    filter: drop-shadow(0 0 40px rgba(13,148,136,0.3));
+  }
+  .hero-accent { width: 5px; height: 64px; background: var(--teal); border-radius: 3px; margin-bottom: 28px; }
+  .hero-eyebrow { font-size: 12px; font-weight: 600; color: var(--teal-lt); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(42px, 6vw, 80px);
+    font-weight: 900; color: white; line-height: 1.05; margin-bottom: 24px;
+    max-width: 780px;
+  }
+  .hero-title em { font-style: normal; color: var(--gold); }
+  .hero-sub { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.7); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: flex; gap: 40px; margin-bottom: 44px; flex-wrap: wrap; }
+  .hero-stat { }
+  .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--teal-lt); }
+  .hero-stat .lbl { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal); color: white; padding: 14px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.2s;
+    border: 2px solid var(--teal);
+  }
+  .btn-primary:hover { background: var(--teal-lt); border-color: var(--teal-lt); transform: translateY(-2px); }
+  .btn-gold {
+    background: var(--gold); color: var(--navy); padding: 14px 28px; border-radius: 10px;
+    font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s;
+    border: 2px solid var(--gold);
+  }
+  .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: white; padding: 14px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.2s;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.06); }
+
+  /* ── PARTNER BAR ── */
+  .partner-bar {
+    background: #0A1628; padding: 14px 5%; border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+  }
+  .partner-bar p { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .partner-bar .partners { font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; }
+  .partner-bar .partners span { margin: 0 10px; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 90px 5%; }
+  .section-tag { font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+  .section-sub { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 600px; margin-bottom: 48px; }
+  .divider { width: 48px; height: 4px; background: var(--teal); border-radius: 2px; margin: 16px 0 32px; }
+
+  /* ── MISSION ── */
+  #mission { background: var(--off); }
+  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .mission-cards { display: grid; gap: 16px; }
+  .mission-card {
+    background: white; border-radius: 12px; padding: 24px;
+    border-left: 4px solid var(--teal); box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .mission-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+  .mission-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .mission-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+  .mission-card.gold { border-left-color: var(--gold); }
+  .mission-card.red { border-left-color: var(--red); }
+  .mission-card.navy { border-left-color: var(--navy); }
+
+  /* ── FOUNDER ── */
+  #founder { background: var(--navy); }
+  .founder-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: center; }
+  .founder-photo-wrap {
+    position: relative;
+  }
+  .founder-photo-frame {
+    background: var(--navy2); border: 2px solid rgba(13,148,136,0.3);
+    border-radius: 16px; padding: 28px; text-align: center;
+  }
+  .founder-photo-frame img {
+    width: 100%; max-width: 280px; border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    object-fit: cover; object-position: top center;
+  }
+  .founder-photo-frame .name-tag { margin-top: 16px; }
+  .founder-photo-frame .name-tag strong { display: block; font-family: 'Playfair Display', serif; font-size: 20px; color: white; }
+  .founder-photo-frame .name-tag span { font-size: 12px; color: var(--teal-lt); letter-spacing: 1px; }
+  .founder-photo-frame .memorial { font-size: 11px; color: var(--gold); font-style: italic; margin-top: 6px; }
+  .founder-content .section-title { color: white; }
+  .founder-content .section-tag { color: var(--teal-lt); }
+  .founder-content .divider { background: var(--gold); }
+  .founder-content p { font-size: 15.5px; color: rgba(255,255,255,0.78); line-height: 1.8; margin-bottom: 20px; }
+  .founder-quote {
+    border-left: 3px solid var(--gold); padding-left: 20px; margin: 28px 0;
+  }
+  .founder-quote p { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; color: white; line-height: 1.55; }
+
+  /* ── PROGRAMS ── */
+  #programs { background: white; }
+  .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .prog-card {
+    border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px;
+    transition: all 0.25s; cursor: default;
+  }
+  .prog-card:hover { border-color: var(--teal); box-shadow: 0 8px 28px rgba(13,148,136,0.12); transform: translateY(-4px); }
+  .prog-icon {
+    width: 48px; height: 48px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px;
+  }
+  .prog-icon.teal { background: rgba(13,148,136,0.1); }
+  .prog-icon.gold { background: rgba(245,158,11,0.1); }
+  .prog-icon.red { background: rgba(220,38,38,0.1); }
+  .prog-icon.navy { background: rgba(13,27,62,0.08); }
+  .prog-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .prog-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+  /* ── IMPACT ── */
+  #impact { background: var(--off); }
+  .impact-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 56px; }
+  .impact-num {
+    background: white; border-radius: 14px; padding: 32px 24px; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); border-top: 4px solid var(--teal);
+  }
+  .impact-num.gold { border-top-color: var(--gold); }
+  .impact-num.red { border-top-color: var(--red); }
+  .impact-num .n { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--navy); }
+  .impact-num .n.teal { color: var(--teal); }
+  .impact-num .n.gold { color: var(--gold); }
+  .impact-num .n.red { color: var(--red); }
+  .impact-num p { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .impact-achievements { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .achieve-card {
+    background: white; border-radius: 12px; padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); display: flex; gap: 16px; align-items: flex-start;
+  }
+  .achieve-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+  .achieve-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .achieve-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── PARTNERS ── */
+  #partners { background: white; }
+  .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .partner-card {
+    border: 1.5px solid var(--border); border-radius: 12px; padding: 22px 18px;
+    text-align: center; transition: all 0.2s;
+  }
+  .partner-card:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(13,148,136,0.1); }
+  .partner-card .p-icon { font-size: 28px; margin-bottom: 10px; }
+  .partner-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .partner-card p { font-size: 11.5px; color: var(--muted); }
+
+  /* ── SPONSORSHIP ── */
+  #sponsorship { background: var(--navy); }
+  #sponsorship .section-title { color: white; }
+  #sponsorship .section-tag { color: var(--teal-lt); }
+  #sponsorship .section-sub { color: rgba(255,255,255,0.65); }
+  #sponsorship .divider { background: var(--gold); }
+  .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tier-card {
+    border-radius: 14px; padding: 32px 24px;
+    border: 1.5px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    transition: all 0.25s;
+  }
+  .tier-card:hover { transform: translateY(-4px); }
+  .tier-card.featured {
+    background: var(--teal); border-color: var(--teal);
+    position: relative;
+  }
+  .tier-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--navy); font-size: 10px; font-weight: 700;
+    padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tier-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .tier-card.featured .tier-label { color: rgba(255,255,255,0.8); }
+  .tier-amount { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold); margin-bottom: 16px; }
+  .tier-card.featured .tier-amount { color: white; }
+  .tier-desc { font-size: 13.5px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 20px; }
+  .tier-perks { list-style: none; }
+  .tier-perks li { font-size: 13px; color: rgba(255,255,255,0.65); padding: 6px 0; padding-left: 18px; position: relative; }
+  .tier-perks li::before { content: '✓'; position: absolute; left: 0; color: var(--teal-lt); font-weight: 700; }
+  .tier-card.featured .tier-perks li::before { color: var(--gold-lt); }
+  .tier-card.featured .tier-perks li { color: rgba(255,255,255,0.9); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--off); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .contact-form { background: white; border-radius: 16px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 24px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--slate); margin-bottom: 6px; letter-spacing: 0.3px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; color: var(--slate);
+    transition: border-color 0.2s; background: white;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--teal);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    width: 100%; padding: 14px; background: var(--teal); color: white;
+    border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .form-submit:hover { background: var(--teal-lt); transform: translateY(-1px); }
+  .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--navy); margin-bottom: 16px; }
+  .contact-info p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+  .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .contact-detail .icon { font-size: 20px; width: 40px; height: 40px; background: rgba(13,148,136,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-detail div span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact-detail div a, .contact-detail div p { font-size: 14px; color: var(--navy); font-weight: 600; text-decoration: none; }
+  .success-msg { display: none; background: rgba(13,148,136,0.1); border: 1px solid var(--teal); border-radius: 8px; padding: 16px; margin-top: 16px; color: var(--teal); font-size: 14px; font-weight: 500; text-align: center; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #070F22; padding: 36px 5%;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.35); }
+  footer a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; margin-left: 20px; }
+  footer a:hover { color: var(--teal-lt); }
+
+  /* ── LANGUAGE TOGGLE ── */
+  [data-en], [data-fr] { }
+  body.lang-fr [data-en] { display: none !important; }
+  body.lang-fr [data-fr] { display: block !important; }
+  body.lang-en [data-fr] { display: none !important; }
+  body.lang-en [data-en] { display: block !important; }
+  [data-fr] { display: none; }
+  [data-en] { display: block; }
+  /* inline elements */
+  body.lang-fr span[data-en], body.lang-fr a[data-en] { display: none !important; }
+  body.lang-fr span[data-fr], body.lang-fr a[data-fr] { display: inline !important; }
+  body.lang-en span[data-fr], body.lang-en a[data-fr] { display: none !important; }
+  body.lang-en span[data-en], body.lang-en a[data-en] { display: inline !important; }
+  span[data-fr], a[data-fr] { display: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .mission-grid, .founder-grid, .contact-grid { grid-template-columns: 1fr; }
+    .tiers-grid { grid-template-columns: 1fr; }
+    .impact-numbers { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 580px) {
+    .impact-numbers { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body class="lang-en">
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-mark"><img src="fcmlogo-final.jpg" alt="FCM Logo"/></div>
+    <div class="nav-logo-text">
+      <span>Fondation Césaire Maffon</span>
+      <span>Cotonou, Bénin</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#mission"><span data-en>Mission</span><span data-fr>Mission</span></a>
+    <a href="#founder"><span data-en>Our Story</span><span data-fr>Notre Histoire</span></a>
+    <a href="#programs"><span data-en>Programmes</span><span data-fr>Programmes</span></a>
+    <a href="#impact"><span data-en>Impact</span><span data-fr>Impact</span></a>
+    <a href="#partners"><span data-en>Partners</span><span data-fr>Partenaires</span></a>
+    <a href="#sponsorship"><span data-en>Sponsor Us</span><span data-fr>Nous Soutenir</span></a>
+    <a href="#contact" class="nav-cta"><span data-en>Contact</span><span data-fr>Contact</span></a>
+  </div>
+  <div class="nav-lang">
+    <button class="active" onclick="setLang('en')">EN</button>
+    <button onclick="setLang('fr')">FR</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <img src="fcmlogo-final.jpg" alt="" class="hero-logo-img"/>
+  <div class="hero-accent"></div>
+  <p class="hero-eyebrow"><span data-en>Fondation Césaire Maffon — Cotonou, Bénin</span><span data-fr>Fondation Césaire Maffon — Cotonou, Bénin</span></p>
+  <h1 class="hero-title" data-en>Every <em>heartbeat</em><br>counts.</h1>
+  <h1 class="hero-title" data-fr>Chaque <em>battement</em><br>de cœur compte.</h1>
+  <p class="hero-sub" data-en>A national programme to prevent cardiovascular deaths in Benin — through early screening, life-saving devices, and training for medical professionals.</p>
+  <p class="hero-sub" data-fr>Un programme national de prévention des maladies cardiovasculaires au Bénin — par le dépistage précoce, les dispositifs vitaux et la formation des professionnels de santé.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">#1</div><div class="lbl"><span data-en>Cause of death in Sub-Saharan Africa</span><span data-fr>Cause de mortalité en Afrique subsaharienne</span></div></div>
+    <div class="hero-stat"><div class="num">80%</div><div class="lbl"><span data-en>of CV deaths before age 70</span><span data-fr>des décès CV surviennent avant 70 ans</span></div></div>
+    <div class="hero-stat"><div class="num">&lt;10%</div><div class="lbl"><span data-en>of patients receive early screening</span><span data-fr>des patients bénéficient d'un dépistage précoce</span></div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="#sponsorship" class="btn-gold"><span data-en>Become a Partner</span><span data-fr>Devenir Partenaire</span></a>
+    <a href="#programs" class="btn-primary"><span data-en>Our Programmes</span><span data-fr>Nos Programmes</span></a>
+    <a href="#founder" class="btn-outline"><span data-en>Our Story</span><span data-fr>Notre Histoire</span></a>
+  </div>
+</section>
+
+<div class="partner-bar">
+  <p><span data-en>Strategic partners</span><span data-fr>Partenaires stratégiques</span></p>
+  <div class="partners">
+    <span>BANK OF AFRICA</span><span>·</span><span>CNHU-HKM</span><span>·</span>
+    <span>Forces Armées du Bénin</span><span>·</span>
+    <span>Dennis & Jane Reese Family Foundation</span><span>·</span>
+    <span>Global Cardiovascular Collaborative</span>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section id="mission">
+  <p class="section-tag"><span data-en>Who we are</span><span data-fr>Qui sommes-nous</span></p>
+  <h2 class="section-title" data-en>Our Mission</h2>
+  <h2 class="section-title" data-fr>Notre Mission</h2>
+  <div class="divider"></div>
+  <p class="section-sub" data-en>Fondation Césaire Maffon is a non-profit organisation dedicated to improving the lives of people affected by cardiovascular disease in Benin, by making life-saving screening and treatment genuinely accessible.</p>
+  <p class="section-sub" data-fr>La Fondation Césaire Maffon est une ONG dédiée à l'amélioration de la vie des personnes touchées par les maladies cardiovasculaires au Bénin, en rendant réellement accessibles le dépistage et les traitements qui sauvent des vies.</p>
+  <div class="mission-grid">
+    <div class="mission-cards">
+      <div class="mission-card">
+        <h4><span data-en>🫀 Early Screening & Diagnosis</span><span data-fr>🫀 Dépistage précoce & diagnostic</span></h4>
+        <p data-en>Improving access to cardiac screening, diagnosis, and patient follow-up so that no case goes undetected until it is too late.</p>
+        <p data-fr>Améliorer l'accès au dépistage cardiaque, au diagnostic et au suivi des patients afin qu'aucun cas ne passe inaperçu jusqu'à ce qu'il soit trop tard.</p>
+      </div>
+      <div class="mission-card gold">
+        <h4><span data-en>💛 Life-Saving Devices</span><span data-fr>💛 Dispositifs vitaux</span></h4>
+        <p data-en>Providing pacemakers and ICDs (Implantable Cardioverter Defibrillators) to patients who cannot afford them, because access to technology should not depend on income.</p>
+        <p data-fr>Fournir des stimulateurs cardiaques et des DAI aux patients qui ne peuvent pas se les offrir, car l'accès à la technologie ne doit pas dépendre du revenu.</p>
+      </div>
+      <div class="mission-card navy">
+        <h4><span data-en>🏥 Strengthening Hospitals</span><span data-fr>🏥 Renforcer les hôpitaux</span></h4>
+        <p data-en>Equipping Beninese hospitals with essential diagnostic tools and building sustainable clinical partnerships with local and international experts.</p>
+        <p data-fr>Équiper les hôpitaux béninois d'outils de diagnostic essentiels et établir des partenariats cliniques durables avec des experts locaux et internationaux.</p>
+      </div>
+      <div class="mission-card red">
+        <h4><span data-en>❤️ Honouring Césaire's Memory</span><span data-fr>❤️ Honorer la mémoire de Césaire</span></h4>
+        <p data-en>Preventing avoidable deaths from sudden cardiac arrest — the tragedy that took Césaire Maffon at just 30 years old, and drives everything we do.</p>
+        <p data-fr>Prévenir les décès évitables liés à un arrêt cardiaque soudain — la tragédie qui a emporté Césaire Maffon à seulement 30 ans et qui guide tout ce que nous faisons.</p>
+      </div>
+    </div>
+    <div>
+      <p class="section-tag" style="margin-top:0"><span data-en>The challenge</span><span data-fr>Le défi</span></p>
+      <h3 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:16px;line-height:1.3" data-en>Cardiovascular disease is the leading killer in Sub-Saharan Africa — yet most deaths are preventable.</h3>
+      <h3 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:16px;line-height:1.3" data-fr>Les maladies cardiovasculaires sont la première cause de mortalité en Afrique subsaharienne — pourtant, la plupart de ces décès sont évitables.</h3>
+      <div class="divider"></div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:16px" data-en>In Benin, access to specialised cardiac care remains extremely limited. Patients arrive in crisis because they were never screened. Hospitals lack essential equipment. And without a pacemaker or ICD, a treatable condition becomes a death sentence.</p>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:16px" data-fr>Au Bénin, l'accès aux soins cardiaques spécialisés reste extrêmement limité. Les patients arrivent en crise car ils n'ont jamais été dépistés. Les hôpitaux manquent d'équipements essentiels. Et sans stimulateur cardiaque ou DAI, une pathologie traitable devient une condamnation à mort.</p>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8" data-en>FCM exists to change this. We work with hospitals, cardiologists, and partner organisations to build a system where no patient is left behind.</p>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8" data-fr>La FCM existe pour changer cela. Nous travaillons avec les hôpitaux, les cardiologues et les organisations partenaires pour construire un système où aucun patient n'est laissé de côté.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="founder-grid">
+    <div class="founder-photo-wrap">
+      <div class="founder-photo-frame">
+        <img src="cesaire-maffon.png" alt="Césaire Maffon"/>
+        <div class="name-tag">
+          <strong>Césaire Maffon</strong>
+          <span>1971 — 2001</span>
+          <div class="memorial" data-en>In loving memory</div>
+          <div class="memorial" data-fr>En souvenir affectueux</div>
+        </div>
+      </div>
+    </div>
+    <div class="founder-content">
+      <p class="section-tag"><span data-en>A commitment of the heart</span><span data-fr>Un engagement de cœur</span></p>
+      <h2 class="section-title" data-en>The Founder's Story</h2>
+      <h2 class="section-title" data-fr>L'Histoire du Fondateur</h2>
+      <div class="divider"></div>
+      <p data-en>A few years ago, my younger brother Césaire passed away at just 30 years old. He collapsed during a football match, suddenly struck by cardiac arrest — a life shattered in an instant.</p>
+      <p data-fr>Il y a quelques années, mon jeune frère Césaire est décédé à seulement 30 ans. Il s'est effondré pendant un match de football, soudainement victime d'un arrêt cardiaque — une vie brisée en un instant.</p>
+      <p data-en>This tragedy could almost certainly have been prevented had he been diagnosed in time and fitted with an ICD. Many people living with cardiovascular disease are alive today because they had access to medical care and life-saving technology that my brother never had the chance to receive.</p>
+      <p data-fr>Ce drame aurait presque certainement pu être évité s'il avait été diagnostiqué à temps et équipé d'un DAI. Beaucoup de personnes vivant avec une maladie cardiovasculaire sont encore en vie aujourd'hui parce qu'elles ont eu accès à des soins médicaux et à une technologie salvatrice que mon frère n'a jamais eu la chance de recevoir.</p>
+      <p data-en>It is so that other families in Benin do not endure the same pain that Fondation Césaire Maffon was created.</p>
+      <p data-fr>C'est pour que d'autres familles au Bénin ne vivent pas la même douleur que la Fondation Césaire Maffon a été créée.</p>
+      <div class="founder-quote">
+        <p data-en>"Because every heartbeat counts. Because behind every heartbeat lies a life, a family, and a future."</p>
+        <p data-fr>« Parce que chaque battement de cœur compte. Parce que derrière chaque battement de cœur se cache une vie, une famille et un avenir. »</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <p class="section-tag"><span data-en>What we do</span><span data-fr>Ce que nous faisons</span></p>
+  <h2 class="section-title" data-en>Our Programmes</h2>
+  <h2 class="section-title" data-fr>Nos Programmes</h2>
+  <div class="divider"></div>
+  <p class="section-sub" data-en>Practical, concrete solutions — providing devices, equipping hospitals, and identifying patients before tragedy strikes.</p>
+  <p class="section-sub" data-fr>Des solutions concrètes et pratiques — fournir des dispositifs, équiper les hôpitaux et identifier les patients avant qu'un drame ne survienne.</p>
+  <div class="programs-grid">
+    <div class="prog-card">
+      <div class="prog-icon teal">🫀</div>
+      <h3 data-en>Device Donations & Access</h3>
+      <h3 data-fr>Dons & accès aux dispositifs</h3>
+      <p data-en>Collecting and providing pacemakers, ICDs, and other cardiac devices to patients in need across Benin.</p>
+      <p data-fr>Collecter et fournir des stimulateurs cardiaques, des DAI et d'autres dispositifs cardiaques aux patients qui en ont besoin.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon gold">🔬</div>
+      <h3 data-en>Diagnostic Equipment</h3>
+      <h3 data-fr>Équipements de diagnostic</h3>
+      <p data-en>Supporting hospitals with ECG machines, echocardiography equipment, AEDs and other tools for reliable cardiac diagnosis.</p>
+      <p data-fr>Soutenir les hôpitaux avec des appareils d'ECG, des échographes cardiaques, des DEA et d'autres outils pour un diagnostic fiable.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon red">📋</div>
+      <h3 data-en>Screening & Awareness</h3>
+      <h3 data-fr>Dépistage & sensibilisation</h3>
+      <p data-en>Organising screening days and awareness campaigns for high-risk populations — military personnel, athletes, communities.</p>
+      <p data-fr>Organiser des journées de dépistage et des campagnes de sensibilisation pour les populations à haut risque — militaires, sportifs, communautés.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon navy">🎓</div>
+      <h3 data-en>Training & Collaboration</h3>
+      <h3 data-fr>Formation & collaboration</h3>
+      <p data-en>BLS/ACLS training for health professionals and collaboration with local and international teams to share best practices in cardiology.</p>
+      <p data-fr>Formation BLS/ACLS pour les professionnels de santé et collaboration avec les équipes locales et internationales pour partager les meilleures pratiques en cardiologie.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon teal">🏥</div>
+      <h3 data-en>Hospital Strengthening</h3>
+      <h3 data-fr>Renforcement hospitalier</h3>
+      <p data-en>Partnering with 5+ hospitals across Benin to build sustainable diagnostic and interventional cardiology capabilities.</p>
+      <p data-fr>Partenariat avec 5+ hôpitaux à travers le Bénin pour développer des capacités durables en cardiologie diagnostique et interventionnelle.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon gold">🧠</div>
+      <h3 data-en>Psychosocial Support</h3>
+      <h3 data-fr>Soutien psychosocial</h3>
+      <p data-en>Supporting patients and families with psychological care, therapeutic education, and follow-up to improve treatment adherence.</p>
+      <p data-fr>Accompagner les patients et leurs familles avec des soins psychologiques, une éducation thérapeutique et un suivi pour améliorer l'adhésion au traitement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <p class="section-tag"><span data-en>Results</span><span data-fr>Résultats</span></p>
+  <h2 class="section-title" data-en>Our Impact</h2>
+  <h2 class="section-title" data-fr>Notre Impact</h2>
+  <div class="divider"></div>
+  <p class="section-sub" data-en>We are at the beginning of a long journey — but every device delivered and every patient screened represents a life with more time, dignity, and hope.</p>
+  <p class="section-sub" data-fr>Nous sommes au début d'un long chemin — mais chaque dispositif fourni et chaque patient dépisté représente une vie avec plus de temps, plus de dignité et plus d'espoir.</p>
+  <div class="impact-numbers">
+    <div class="impact-num">
+      <div class="n teal">10 000+</div>
+      <p data-en>People to be screened by 2030</p>
+      <p data-fr>Personnes à dépister d'ici 2030</p>
+    </div>
+    <div class="impact-num gold">
+      <div class="n gold">6 000+</div>
+      <p data-en>Military FAB personnel targeted</p>
+      <p data-fr>Militaires des FAB ciblés</p>
+    </div>
+    <div class="impact-num red">
+      <div class="n red">500+</div>
+      <p data-en>Healthcare professionals to train</p>
+      <p data-fr>Professionnels de santé à former</p>
+    </div>
+  </div>
+  <div class="impact-achievements">
+    <div class="achieve-card">
+      <div class="achieve-icon">🌍</div>
+      <div>
+        <h4 data-en>STEMI Africa Summit — Nairobi 2026</h4>
+        <h4 data-fr>STEMI Africa Summit — Nairobi 2026</h4>
+        <p data-en>FCM's Benin delegation participated in Africa's largest cardiology congress, gaining international recognition and strengthening partnerships with leading cardiovascular experts.</p>
+        <p data-fr>La délégation béninoise de la FCM a participé au plus grand congrès de cardiologie d'Afrique, gagnant une reconnaissance internationale et renforçant les partenariats avec les experts cardiovasculaires.</p>
+      </div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-icon">🏥</div>
+      <div>
+        <h4 data-en>CNHU-HKM Cardiac Mission — Sept. 2026</h4>
+        <h4 data-fr>Mission cardiaque CNHU-HKM — Sept. 2026</h4>
+        <p data-en>~15 patients planned for pacemaker and ICD implantation, including Left Bundle Branch Area Pacing. Clinical support by Dr Clément Bars.</p>
+        <p data-fr>~15 patients prévus pour l'implantation de stimulateurs cardiaques et de DAI, dont la stimulation de la zone du faisceau de His gauche. Soutien clinique du Dr Clément Bars.</p>
+      </div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-icon">🎖️</div>
+      <div>
+        <h4 data-en>Military CV Screening Pilot — FAB</h4>
+        <h4 data-fr>Pilote dépistage CV militaire — FAB</h4>
+        <p data-en>Cardiovascular screening programme launched for the Forces Armées du Bénin. Standardised 12-lead ECG protocol with triage and referral pathways.</p>
+        <p data-fr>Programme de dépistage cardiovasculaire lancé pour les Forces Armées du Bénin. Protocole ECG 12 dérivations standardisé avec triage et orientation vers les soins.</p>
+      </div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-icon">🤝</div>
+      <div>
+        <h4 data-en>Strategic Partnership Engagements</h4>
+        <h4 data-fr>Engagements de partenariat stratégique</h4>
+        <p data-en>Fondation BOA Bénin has expressed willingness to establish a strategic partnership and provide financial support. Initial meeting with Moov Africa Bénin also completed.</p>
+        <p data-fr>La Fondation BOA Bénin a exprimé sa volonté d'établir un partenariat stratégique et d'apporter un soutien financier. Une première réunion avec Moov Africa Bénin a également eu lieu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <p class="section-tag"><span data-en>Our ecosystem</span><span data-fr>Notre écosystème</span></p>
+  <h2 class="section-title" data-en>Partners & Collaborators</h2>
+  <h2 class="section-title" data-fr>Partenaires & Collaborateurs</h2>
+  <div class="divider"></div>
+  <p class="section-sub" data-en>FCM builds a credible national and international coalition to tackle cardiovascular disease in Benin.</p>
+  <p class="section-sub" data-fr>La FCM bâtit une coalition nationale et internationale crédible pour lutter contre les maladies cardiovasculaires au Bénin.</p>
+  <div class="partners-grid">
+    <div class="partner-card">
+      <div class="p-icon">🏦</div>
+      <h4>BOA Bénin</h4>
+      <p data-en>Financial & ESG Partner</p>
+      <p data-fr>Partenaire financier & ESG</p>
+    </div>
+    <div class="partner-card">
+      <div class="p-icon">🏥</div>
+      <h4>CNHU-HKM</h4>
+      <p data-en>Lead Hospital Partner</p>
+      <p data-fr>Centre hospitalier référent</p>
+    </div>
+    <div class="partner-card">
+      <div class="p-icon">🎖️</div>
+      <h4>Forces Armées du Bénin</h4>
+      <p data-en>Field & Screening Partner</p>
+      <p data-fr>Partenaire terrain & dépistage</p>
+    </div>
+    <div class="partner-card">
+      <div class="p-icon">🌍</div>
+      <h4>Global Cardiovascular Collaborative</h4>
+      <p data-en>International Expertise</p>
+      <p data-fr>Expertise internationale</p>
+    </div>
+    <div class="partner-card">
+      <div class="p-icon">💛</div>
+      <h4>Dennis & Jane Reese Family Foundation</h4>
+      <p data-en>Founding Partner</p>
+      <p data-fr>Partenaire fondateur</p>
+    </div>
+    <div class="partner-card">
+      <div class="p-icon">👨‍⚕️</div>
+      <h4>Dr Soummonni & Pr Sonou</h4>
+      <p data-en>Clinical Leadership</p>
+      <p data-fr>Leadership clinique</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSORSHIP -->
+<section id="sponsorship">
+  <p class="section-tag"><span data-en>Support our work</span><span data-fr>Soutenez notre travail</span></p>
+  <h2 class="section-title" data-en>Become a Partner</h2>
+  <h2 class="section-title" data-fr>Devenez Partenaire</h2>
+  <div class="divider"></div>
+  <p class="section-sub" data-en>A strategic partnership — not a simple donation request. Join a credible national coalition and align your ESG commitments with measurable health impact in Benin.</p>
+  <p class="section-sub" data-fr>Un partenariat stratégique — pas une simple demande de don. Rejoignez une coalition nationale crédible et alignez vos engagements ESG avec un impact sanitaire mesurable au Bénin.</p>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div class="tier-label" data-en>Operational Partner</div>
+      <div class="tier-label" data-fr>Partenaire Opérationnel</div>
+      <div class="tier-amount">$10 000 – $25 000</div>
+      <p class="tier-desc" data-en>Material, logistical or in-kind support. Participation in field events. Local visibility.</p>
+      <p class="tier-desc" data-fr>Soutien matériel, logistique ou en nature. Participation aux événements terrain. Visibilité locale.</p>
+      <ul class="tier-perks">
+        <li data-en>Logo on FCM communications</li>
+        <li data-fr>Logo sur les communications FCM</li>
+        <li data-en>Invitation to field events</li>
+        <li data-fr>Invitation aux événements terrain</li>
+        <li data-en>Annual impact report</li>
+        <li data-fr>Rapport d'impact annuel</li>
+      </ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-badge" data-en>Most Popular</div>
+      <div class="tier-badge" data-fr>Plus demandé</div>
+      <div class="tier-label" data-en>Programme Sponsor</div>
+      <div class="tier-label" data-fr>Sponsor de Programme</div>
+      <div class="tier-amount">$30 000 – $80 000</div>
+      <p class="tier-desc" data-en>Fund a specific programme axis — military screening, BLS training, or equipment donation. Targeted visibility and reporting.</p>
+      <p class="tier-desc" data-fr>Financer un axe programme précis — dépistage militaire, formation BLS ou dons d'équipements. Visibilité ciblée et reporting dédié.</p>
+      <ul class="tier-perks">
+        <li data-en>Named programme sponsorship</li>
+        <li data-fr>Parrainage de programme nommé</li>
+        <li data-en>Dedicated impact reporting</li>
+        <li data-fr>Reporting d'impact dédié</li>
+        <li data-en>Co-branding on programme materials</li>
+        <li data-fr>Co-branding sur les supports</li>
+        <li data-en>Presence at programme events</li>
+        <li data-fr>Présence aux événements</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label" data-en>Founding Partner</div>
+      <div class="tier-label" data-fr>Partenaire Fondateur</div>
+      <div class="tier-amount">$100 000 – $150 000</div>
+      <p class="tier-desc" data-en>Multi-year structural contribution (3 years). Co-branding across all materials, presence at national events, dedicated impact report.</p>
+      <p class="tier-desc" data-fr>Contribution pluriannuelle structurante (3 ans). Co-branding sur tous les supports, présence aux événements nationaux, rapport d'impact dédié.</p>
+      <ul class="tier-perks">
+        <li data-en>Founding Partner status & recognition</li>
+        <li data-fr>Statut & reconnaissance de Partenaire Fondateur</li>
+        <li data-en>Co-branding on all FCM materials</li>
+        <li data-fr>Co-branding sur tous les supports FCM</li>
+        <li data-en>Seat on FCM Advisory Board</li>
+        <li data-fr>Siège au Conseil Consultatif FCM</li>
+        <li data-en>Quarterly impact reporting</li>
+        <li data-fr>Reporting d'impact trimestriel</li>
+        <li data-en>Exclusive events & field visits</li>
+        <li data-fr>Événements exclusifs & visites terrain</li>
+      </ul>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:36px;font-size:14px;color:rgba(255,255,255,0.5)" data-en>Flexible contributions also accepted — contact us to discuss a bespoke partnership arrangement.</p>
+  <p style="text-align:center;margin-top:36px;font-size:14px;color:rgba(255,255,255,0.5)" data-fr>Les contributions flexibles sont également acceptées — contactez-nous pour discuter d'un partenariat sur mesure.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-tag"><span data-en>Get in touch</span><span data-fr>Nous contacter</span></p>
+  <h2 class="section-title" data-en>Contact Us</h2>
+  <h2 class="section-title" data-fr>Contactez-Nous</h2>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info">
+        <p data-en>For device donations, partnerships, sponsorship, or financial support — reach out and we'll get back to you promptly.</p>
+        <p data-fr>Pour les dons de dispositifs, les partenariats, le parrainage ou le soutien financier — contactez-nous et nous vous répondrons rapidement.</p>
+        <div class="contact-detail">
+          <div class="icon">✉️</div>
+          <div>
+            <span>Email</span>
+            <a href="mailto:info@fondationcesairemaffon.org">info@fondationcesairemaffon.org</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">📍</div>
+          <div>
+            <span data-en>Location</span><span data-fr>Localisation</span>
+            <p>Cotonou, Bénin</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">🌐</div>
+          <div>
+            <span>Website</span>
+            <a href="https://amaffon.github.io/fondation-cesaire-maffon/" target="_blank">fondationcesairemaffon.org</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 data-en>Send a Message</h3>
+      <h3 data-fr>Envoyer un Message</h3>
+      <div class="form-group">
+        <label data-en>Full Name</label>
+        <label data-fr>Nom complet</label>
+        <input type="text" placeholder="Your name / Votre nom"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label data-en>Organisation</label>
+        <label data-fr>Organisation</label>
+        <input type="text" placeholder="Your organisation / Votre organisation"/>
+      </div>
+      <div class="form-group">
+        <label data-en>I am interested in…</label>
+        <label data-fr>Je suis intéressé(e) par…</label>
+        <select>
+          <option data-en value="">Select / Choisir</option>
+          <option data-en>Strategic Partnership</option>
+          <option data-fr>Partenariat stratégique</option>
+          <option data-en>Device Donation</option>
+          <option data-fr>Don de dispositifs</option>
+          <option data-en>Financial Sponsorship</option>
+          <option data-fr>Soutien financier</option>
+          <option data-en>Medical Collaboration</option>
+          <option data-fr>Collaboration médicale</option>
+          <option data-en>General Enquiry</option>
+          <option data-fr>Renseignements généraux</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-en>Message</label>
+        <label data-fr>Message</label>
+        <textarea placeholder="Your message…"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm(this)">
+        <span data-en>Send Message</span>
+        <span data-fr>Envoyer</span>
+      </button>
+      <div class="success-msg" id="successMsg">
+        <span data-en>✅ Thank you! We will be in touch shortly.</span>
+        <span data-fr>✅ Merci ! Nous vous contacterons très prochainement.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Fondation Césaire Maffon — <span data-en>All rights reserved.</span><span data-fr>Tous droits réservés.</span></p>
+  <div>
+    <a href="#mission"><span data-en>Mission</span><span data-fr>Mission</span></a>
+    <a href="#programs"><span data-en>Programmes</span><span data-fr>Programmes</span></a>
+    <a href="#sponsorship"><span data-en>Partner</span><span data-fr>Partenaire</span></a>
+    <a href="mailto:info@fondationcesairemaffon.org">info@fondationcesairemaffon.org</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('.nav-lang button').forEach(b => b.classList.remove('active'));
+  document.querySelector('.nav-lang button[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+  document.documentElement.lang = lang;
+}
+
+function submitForm(btn) {
+  btn.textContent = '...';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('successMsg').style.display = 'block';
+    btn.style.display = 'none';
+  }, 800);
+}
+
+// Smooth nav highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'white' : '';
+  });
+});
+</script>
+</body>
+</html>
